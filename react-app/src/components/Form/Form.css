@@ -1,0 +1,68 @@
+.form-div {
+    padding: 20px;
+    width: 100%; /* Make form width responsive */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #0b0c10;
+    border-radius: 8px;
+    border: 2px solid #45a29e;
+    margin: auto; /* Center the form div horizontally */
+}
+
+.occult-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ensure form elements use full div width */
+	height: 400px;
+	overflow: scroll;
+}
+
+.form-input, .submit-btn {
+    width: 100%; 
+    padding: 12px;
+    margin-bottom: 5px;
+	margin-top: 5px;
+    background-color: #1f2833;
+    border: 1px solid #45a29e;
+    color: #66fcf1;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+label {
+    color: #66fcf1;
+    margin-bottom: 5px;
+	font-size: 12px;
+    font-weight: bold; /* Make labels slightly bolder */
+}
+
+
+.submit-btn {
+    background-color: #0b0c10;
+    color: #66fcf1;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+	border: 1px solid #45a29e;
+	margin-top: 15px;
+}
+
+.submit-btn:hover {
+    background-color: #45a29e;
+    color: #0b0c10;
+}
+
+.error-message {
+    color: #FF5555; /* Bright color for errors to stand out */
+    margin-top: 5px;
+    font-size: 14px; /* Slightly larger font size for better readability */
+    width: 100%; /* Align with input width */
+    text-align: left; /* Align text to the left */
+}
+
+/* Additional Styling for Textarea */
+textarea.form-input {
+    height: 75px; /* Set a fixed height */
+    resize: none; /* Prevent resizing */
+}

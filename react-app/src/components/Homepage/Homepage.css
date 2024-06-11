@@ -1,0 +1,68 @@
+
+.homepage-div {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #0b0c1043;
+	color: #66fcf1;
+	font-size: 22px;
+	text-align: center;
+	margin-top: -60px;
+	
+}
+
+.link-to-members {
+	margin-top: 10px;
+	color: #66fcf1;
+	text-decoration: underline;
+}
+
+.link-to-members:hover {
+	transform: translateY(-2px);
+
+}
+
+.homepage-button  {
+	padding: 10px 20px;
+    background-color: #0b0c10;
+    color: #66fcf1;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+	margin-top: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 100px;
+}
+
+.homepage-button:hover.join {
+	background-color: red;
+    color: #0b0c10;
+	transform: translateY(-2px);
+}
+
+.homepage-button:hover.members {
+	background-color: gold;
+    color: #0b0c10;
+	transform: translateY(-2px);
+}
+
+
+.main-p-tag {
+	margin-top: -20px;
+	margin-bottom: 0px;
+}
+
+.link-div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.link-div > p {
+	margin: 5px;
+}

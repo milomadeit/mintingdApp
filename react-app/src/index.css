@@ -1,0 +1,20 @@
+/* TODO Add site wide styles */
+body {
+  margin: 0;
+  color: #66fcf1;
+  font-family: "Roboto";
+  background-image: url(./images/forrest.png);
+  background-size: 150%;
+  background-position: center;
+}
+
+
+
+button {
+  cursor: pointer;
+}
+
+.p-error {
+  color: red;
+  margin: 0;
+}

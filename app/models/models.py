@@ -56,7 +56,7 @@ class Form(db.Model):
         }
     
 
-class token(db.Model): 
+class Token(db.Model): 
     __tablename__ = "tokens"
 
     if environment == "production":
@@ -73,3 +73,30 @@ class token(db.Model):
             'tokenDna': self.tokenDna,
  
         }
+    
+class ShippingForm(db.Model): 
+    __tablename__ = "shipping_forms"
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA, 'extend_existing': True}
+    
+
+    id = db.Column(db.Integer, primary_key=True)
+    recipient = db.Column(db.String(250), nullable=False)
+    street_address = db.Column(db.String(64), nullable=False, unique=True)
+    state = db.Column(db.String(64), nullable=False)
+    zipcode = db.Column(db.Integer, nullable=False)
+    tokenId = db.Column(db.Integer, nullable=False, unique=True)
+    isNorthAmerica = db.Column(db.Boolean(True), nullable=False)
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'recipient': self.recipient,
+            'street_address': self.wallet_address,
+            'state': self.state,
+            'zipcode': self.zipcode,
+            'tokenId': self.tokenId,
+        }
+    

@@ -54,3 +54,22 @@ class Form(db.Model):
             'wallet_address': self.wallet_address,
             'twitter': self.twitter
         }
+    
+
+class token(db.Model): 
+    __tablename__ = "tokens"
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA, 'extend_existing': True}
+    
+
+    id = db.Column(db.Integer, primary_key=True)
+    tokenDna = db.Column(db.String(64), nullable=False, unique=True)
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'tokenDna': self.tokenDna,
+ 
+        }

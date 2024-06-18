@@ -94,9 +94,10 @@ class ShippingForm(db.Model):
         return {
             'id': self.id,
             'recipient': self.recipient,
-            'street_address': self.wallet_address,
+            'street_address': self.street_address,
             'state': self.state,
             'zipcode': self.zipcode,
             'tokenId': self.tokenId,
+            'isNorthAmerica': self.isNorthAmerica,
         }
     

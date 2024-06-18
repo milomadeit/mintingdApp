@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField
-from wtforms.validators import DataRequired, ValidationError,
+from wtforms.validators import DataRequired, ValidationError
 from app.models import ShippingForm
 
 
@@ -22,7 +22,7 @@ def address_exists(form, field):
 
 class Shipping_Form(FlaskForm):
     recipient = StringField('recipient', validators=[DataRequired()])
-    address = StringField(
+    street_address = StringField(
         'address', validators=[DataRequired(), address_exists])
     state = StringField('state', validators=[DataRequired()])
     zipcode = StringField('zipcode', validators=[DataRequired()])

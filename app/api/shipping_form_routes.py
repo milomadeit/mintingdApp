@@ -2,22 +2,28 @@ from flask import Blueprint, jsonify, session, request
 from app.models import db, ShippingForm
 from app.forms import Shipping_Form
 
-shipping_form_routes = Blueprint('forms', __name__)
+shipping_form_routes = Blueprint('shipping', __name__)
 
-@shipping_form_routes.route('/new', methods=['POST'])
+@shipping_form_routes.route('/redeem', methods=['POST'])
 def new_address():
 	shipping_form =  Shipping_Form()   # Initialize form with combined data
 	shipping_form['csrf_token'].data = request.cookies['csrf_token']
 
+	isNA = ""
+
 	if shipping_form.validate_on_submit():
+		if request.form.get('isNorthAmerica') == "true":
+			isNA = True
+		else:
+			isNA = False
 
 		new_shipping_form = ShippingForm(
-			recipient=request.recipient,
-			street_address=request.form.get('address'),
-			state=request.state,
-			zipcode=request.zipcode,
-			tokenId=request.tokenId,
-			isNorthAmerica=request.isNorthAmerica,
+			recipient=request.form.get('recipient'),
+			street_address=request.form.get('street_address'),
+			state=request.form.get('state'),
+			zipcode=request.form.get('zipcode'),
+			tokenId=request.form.get('tokenId'),
+			isNorthAmerica=isNA,
 		)
 		db.session.add(new_shipping_form)
 		db.session.commit()

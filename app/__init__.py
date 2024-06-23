@@ -8,11 +8,10 @@ from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.form_routes import form_routes
+from .api.shipping_form_routes import shipping_form_routes
 
 from .seeds import seed_commands
 from .config import Config
-
-
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -20,11 +19,9 @@ app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
 
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)
@@ -33,13 +30,14 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(form_routes, url_prefix='/api')
+app.register_blueprint(shipping_form_routes, url_prefix='/api/shipping')
+
 
 db.init_app(app)
 Migrate(app, db)
 
 # Application Security
 CORS(app)
-
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.

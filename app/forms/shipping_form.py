@@ -15,7 +15,7 @@ def token_burned(form, field):
 def address_exists(form, field):
     # Checking if username is already in use
     address = field.data
-    addressExists = ShippingForm.query.filter(ShippingForm.address == address).first()
+    addressExists = ShippingForm.query.filter(ShippingForm.street_address == address).first()
     if addressExists:
         raise ValidationError('Already shipping to you!')
 

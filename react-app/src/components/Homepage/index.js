@@ -29,7 +29,7 @@ function Homepage() {
 			<div className='link-div'>
 				{/* <OpenModalButton  className='homepage-button join' buttonText='Join' modalComponent={<Form />} /> */}
 			
-				<button className='homepage-button members' onClick="">INVENTORY</button >
+				<button className='homepage-button members' onClick={navToInventory}>INVENTORY</button >
 				<button className='homepage-button members' onClick={navToRedeem}>REDEEM</button >
 
 			</div>

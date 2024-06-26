@@ -11,7 +11,8 @@ import Inventory from "./components/Inventory";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const rpcUrl = "https://rpc.sei-apis.com";
+  const rpcUrl = "https://rpc.sei-apis.com";  // seiV1
+  // const rpcUrl = "https://evm-rpc.sei-apis.com"  // seiV2 EVM
   const restUrl = "https://rest.sei-apis.com/";
   const chainId = "pacific-1";
   

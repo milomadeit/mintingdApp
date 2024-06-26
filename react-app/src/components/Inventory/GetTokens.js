@@ -26,7 +26,7 @@ function GetTokens({contractAddress}) {
 			  if (nftInfo.token_uri) {
 				const metadataResponse = await fetch(nftInfo.token_uri);
 				const metadata = await metadataResponse.json();
-				return { ...metadata, token_id };
+				return { ...metadata, token_id };	
 			  }
 			  return null;
 			});

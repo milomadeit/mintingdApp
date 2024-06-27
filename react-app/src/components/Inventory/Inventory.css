@@ -97,19 +97,57 @@
 
   }
 
-  .opt-in-button {
-	background-color: #007bff; 
-	color: white; 
-	padding: 10px 20px; 
-	border: none; 
-	border-radius: 5px; 
-	cursor: pointer; 
-	margin-top: 15px; 
-	transition: background-color 0.2s; 
+  .connect-wallet-button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 15px 20px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
-  }
+.connect-wallet-button:hover {
+	background-color: #45a049;
+}
 
-  .opt-in-button:hover {
-	background-color: #0056b3;
-	
-  }
+.get-tokens-div {
+	text-align: center;
+}
+
+.card-div {
+	display: inline-block;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	width: 200px;
+}
+
+.nft-div {
+	margin-bottom: 10px;
+}
+
+.nft-img {
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+}
+
+.nft-name {
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.opt-in-button {
+	background-color: #008CBA;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.opt-in-button:hover {
+	background-color: #007BB5;
+}

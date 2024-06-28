@@ -151,3 +151,12 @@
 .opt-in-button:hover {
 	background-color: #007BB5;
 }
+
+.load-div {
+	margin-top:-80px;
+}
+
+.load-div > img {
+	height: 350px;
+	margin-top: -25px;
+}

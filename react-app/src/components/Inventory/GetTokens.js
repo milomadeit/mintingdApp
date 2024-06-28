@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './Inventory.css';
+import loading from './loading.gif'
+
 
 const abi = [
     {
@@ -1634,47 +1636,49 @@ const convertIpfsUrlToHttp = (url) => {
 
 
 function GetTokens({ contractAddress }) {
-	const [nfts, setNfts] = useState([]);
-	const [provider, setProvider] = useState(null);
-	const [signer, setSigner] = useState(null);
-	const [account, setAccount] = useState(null);
-	const [error, setError] = useState(null);
-	const [totalNFTs, setTotalNFTs] = useState(0)
+    const [nfts, setNfts] = useState([]);
+    const [provider, setProvider] = useState(null);
+    const [signer, setSigner] = useState(null);
+    const [account, setAccount] = useState(null);
+    const [error, setError] = useState(null);
+    const [totalNFTs, setTotalNFTs] = useState(0);
+    const [loadingGif, setLoadingGif] = useState(true);
 
-	const connectWallet = async () => {
-		if (window.ethereum) {
-			try {
-				await window.ethereum.request({ method: 'eth_requestAccounts' });
-				const _provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-				const network = await _provider.getNetwork();
-				if (network.chainId !== 1329) {
-					console.log(network.chainId);
-					throw new Error('Please connect to the SeiV1 network.');
-				}
-				setProvider(_provider);
-				const _signer = _provider.getSigner();
-				setSigner(_signer);
-				const _account = await _signer.getAddress();
-				setAccount(_account);
-			} catch (error) {
-				console.error('User denied account access or other error:', error);
-				setError(error.message);
-			}
-		} else {
-			console.error('No Ethereum provider found. Install MetaMask.');
-			setError('No Ethereum provider found. Install MetaMask.');
-		}
-	};
+    const connectWallet = async () => {
+        if (window.ethereum) {
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const _provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+                const network = await _provider.getNetwork();
+                if (network.chainId !== 1329) {
+                    console.log(network.chainId);
+                    throw new Error('Please connect to the SeiV1 network.');
+                }
+                setProvider(_provider);
+                const _signer = _provider.getSigner();
+                setSigner(_signer);
+                const _account = await _signer.getAddress();
+                setAccount(_account);
+            } catch (error) {
+                console.error('User denied account access or other error:', error);
+                setError(error.message);
+            }
+        } else {
+            console.error('No Ethereum provider found. Install MetaMask.');
+            setError('No Ethereum provider found. Install MetaMask.');
+        }
+    };
 
-	useEffect(() => {
+    useEffect(() => {
         const fetchNFTs = async () => {
             if (!provider || !signer || !account) return;
+            setLoadingGif(true);
 
             const contract = new ethers.Contract(contractAddress, abi, signer);
 
             try {
                 const balance = await contract.balanceOf(account);
-				setTotalNFTs(Number(balance))
+                setTotalNFTs(Number(balance));
                 console.log(`Balance of NFTs: ${balance}`);
 
                 const totalSupply = await contract.totalSupply();
@@ -1706,6 +1710,8 @@ function GetTokens({ contractAddress }) {
             } catch (error) {
                 console.error('Error fetching NFTs:', error);
                 setError(error.message);
+            } finally {
+                setLoadingGif(false);
             }
         };
 
@@ -1722,23 +1728,29 @@ function GetTokens({ contractAddress }) {
                 <>
                     <h2>Connected Account: {account}</h2>
                     {error && <p>Error: {error}</p>}
-                    {nfts.length > 0 ? (
-                        nfts.map((nft, index) => (
-                            <div className="card-div" key={index}>
-                                <div className="nft-div">
-                                    <img className="nft-img" src={nft.image} alt={nft.name} />
-                                    <p className="nft-name">{nft.name}</p>
-                                    <p className="nft-description">{nft.description}</p>
-                                    <a href={nft.external_url} target="_blank" rel="noopener noreferrer" className="nft-external-url">View on Market</a>
-                                    {nft.attributes && nft.attributes.map((attr, idx) => (
-                                        <p key={idx} className="nft-attribute">{attr.trait_type}: {attr.value}</p>
-                                    ))}
-                                </div>
-                                <button className="opt-in-button">REDEEM</button>
-                            </div>
-                        ))
+                    {loadingGif ? (
+                        <div className='load-div'>
+                            <img src={loading} alt="Loading" />
+                        </div>
                     ) : (
-                        <p>{totalNFTs} NFTs found in your wallet.</p>
+                        nfts.length > 0 ? (
+                            nfts.map((nft, index) => (
+                                <div className="card-div" key={index}>
+                                    <div className="nft-div">
+                                        <img className="nft-img" src={nft.image} alt={nft.name} />
+                                        <p className="nft-name">{nft.name}</p>
+                                        <p className="nft-description">{nft.description}</p>
+                                        <a href={nft.external_url} target="_blank" rel="noopener noreferrer" className="nft-external-url">View on Market</a>
+                                        {nft.attributes && nft.attributes.map((attr, idx) => (
+                                            <p key={idx} className="nft-attribute">{attr.trait_type}: {attr.value}</p>
+                                        ))}
+                                    </div>
+                                    <button className="opt-in-button">REDEEM</button>
+                                </div>
+                            ))
+                        ) : (
+                            <p>{totalNFTs} NFTs found in your wallet.</p>
+                        )
                     )}
                 </>
             )}

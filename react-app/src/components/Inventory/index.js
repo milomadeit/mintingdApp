@@ -1,6 +1,7 @@
 import React from 'react';
 import { WalletConnectButton } from '@sei-js/react';
 import GetTokens from './GetTokens';
+import './Inventory.css'
 
 function Inventory() {
 	// const contractAddress = "sei1lqsrwexmpve6ltu8pga8ss0jzvgx9r88n6ys9fedjk6dqny72h3q7myv5d" // og
@@ -8,8 +9,8 @@ function Inventory() {
 
 	return (
 		<div>
-		  <h1>My NFT Collection</h1>
-		  <WalletConnectButton />
+		  <h1 className='inventory-div'>Current Inventory</h1>
+
 		  <GetTokens contractAddress={contractAddress} />
 		</div>
 	  );

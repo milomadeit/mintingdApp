@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useModal } from '../../context/Modal';
-// import './Form.css'
+import './redeem.css'
 // import { AddWallet } from '../../store/wallets';
 import { useDispatch } from 'react-redux';
 import { ShippingForm } from '../../store/shipping';
@@ -69,8 +69,8 @@ function Redeem() {
     };
 
     return (
-        <div className='form-div'>
-            <form onSubmit={handleSubmit} className="occult-form">
+        <div className='main-form-div'>
+            <form onSubmit={handleSubmit} className="shipping-form">
 			<div>
                     <label>Recipient</label>
                     <input

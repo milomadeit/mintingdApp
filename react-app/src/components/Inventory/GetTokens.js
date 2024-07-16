@@ -1652,7 +1652,8 @@ function GetTokens({ contractAddress }) {
                 const network = await _provider.getNetwork();
                 if (network.chainId !== 1329) {
                     console.log(network.chainId);
-                    throw new Error('Please connect to the SeiV1 network.');
+                    window.alert('Please connect to the SEI network.')
+                    throw new Error('Please connect to the SEI network.');
                 }
                 setProvider(_provider);
                 const _signer = _provider.getSigner();

@@ -1,6 +1,6 @@
 .form-div {
     padding: 20px;
-    width: 100%; /* Make form width responsive */
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,13 +8,13 @@
     background-color: #0b0c10;
     border-radius: 8px;
     border: 2px solid #45a29e;
-    margin: auto; /* Center the form div horizontally */
+    margin: auto; 
 }
 
 .occult-form {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Ensure form elements use full div width */
+    width: 100%; 
 	height: 400px;
 	overflow: scroll;
 }
@@ -28,14 +28,14 @@
     border: 1px solid #45a29e;
     color: #66fcf1;
     border-radius: 5px;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box; 
 }
 
 label {
     color: #66fcf1;
     margin-bottom: 5px;
 	font-size: 12px;
-    font-weight: bold; /* Make labels slightly bolder */
+    font-weight: bold;
 }
 
 
@@ -43,26 +43,27 @@ label {
     background-color: #0b0c10;
     color: #66fcf1;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
 	border: 1px solid #45a29e;
 	margin-top: 15px;
 }
 
 .submit-btn:hover {
-    background-color: #45a29e;
+    background-color: red;
     color: #0b0c10;
+    border: none;
+    /* transition: background-color 0.3s ease, color 0.3s ease; */
 }
 
 .error-message {
-    color: #FF5555; /* Bright color for errors to stand out */
+    color: #FF5555; 
     margin-top: 5px;
-    font-size: 14px; /* Slightly larger font size for better readability */
-    width: 100%; /* Align with input width */
-    text-align: left; /* Align text to the left */
+    font-size: 14px; 
+    width: 100%;
+    text-align: left; 
 }
 
-/* Additional Styling for Textarea */
+
 textarea.form-input {
-    height: 75px; /* Set a fixed height */
-    resize: none; /* Prevent resizing */
+    height: 75px;
+    resize: none; 
 }

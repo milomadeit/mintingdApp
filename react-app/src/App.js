@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
+import { WalletProvider } from "./context/WalletProvider";
 import Homepage from "./components/Homepage";
 import MembersPage from "./components/Members";
 import Redeem from "./components/Redeem";
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <>
+    <WalletProvider>
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={Homepage} />
@@ -28,6 +30,7 @@ function App() {
           <Route path="/inventory" component={Inventory} />   
         </Switch>
       )}
+    </WalletProvider>
     </>
   );
 }

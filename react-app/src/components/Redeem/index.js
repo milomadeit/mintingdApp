@@ -1,77 +1,92 @@
 import React, { useState } from 'react';
 import { useModal } from '../../context/Modal';
-import './redeem.css'
-// import { AddWallet } from '../../store/wallets';
+import './redeem.css';
 import { useDispatch } from 'react-redux';
 import { ShippingForm } from '../../store/shipping';
-
+import { useWallet } from '../../context/WalletProvider';
+import { ethers } from 'ethers';
 function Redeem() {
-	const [recipient, setRecipient] = useState('');
-	const [street_address, setStreetAddress] = useState('')
-	const [state, setState] = useState('')
-	const [zipcode, setZipcode] = useState('')
-	const [isNorthAmerica, setIsNorthAmerica] = useState(true)
-	const [tokenId, setTokenId] = useState('')
+    const [recipient, setRecipient] = useState('');
+    const [street_address, setStreetAddress] = useState('');
+    const [state, setState] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const [isNorthAmerica, setIsNorthAmerica] = useState(true);
+    const [tokenId, setTokenId] = useState('');
     const [error, setError] = useState({});
     const { closeModal } = useModal();
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const { signer, handleConnectWallet } = useWallet();
 
+    // const handleBurnNFT = async () => {
+    //     if (!signer) {
+    //         setError({ burn: 'Please connect your wallet first.' });
+    //         return;
+    //     }
+    //     const contract = new ethers.Contract(yourNFTContractAddress, yourNFTContractABI, signer);
+    //     try {
+    //         const tx = await contract.burn(tokenId);
+    //         await tx.wait(); 
+    //         console.log("NFT burned successfully");
+    //     } catch (error) {
+    //         console.error("Error burning NFT", error);
+    //         setError({ burn: "Failed to burn NFT. Please try again." });
+    //     }
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError({}) // Reset errors at the start
+        setError({}); 
 
         const form_errors = {};
 
-        // Validate wallet address
-        if (!recipient)form_errors.recipient = "Please enter a recipient.";
-		if (!street_address)form_errors.street_address = "Please enter a street address.";
-		if (!state )form_errors.state = "Please enter a state.";
-		if (!zipcode )form_errors.zipcode = "Please enter a zipcode.";
-		if (!tokenId)form_errors.tokenId = "Please include a tokenId.";
+      
+        if (!recipient) form_errors.recipient = "Please enter a recipient.";
+        if (!street_address) form_errors.street_address = "Please enter a street address.";
+        if (!state) form_errors.state = "Please enter a state.";
+        if (!zipcode) form_errors.zipcode = "Please enter a zipcode.";
+        if (!tokenId) form_errors.tokenId = "Please include a tokenId.";
 
-
-        // Check if there are any errors
+   
         if (Object.keys(form_errors).length > 0) {
-            setError(form_errors); // Set errors
-            return; // Prevent form submission if there are errors
+            setError(form_errors); 
+            return; 
         }
 
-        const formData = new FormData();
-		formData.append('recipient', recipient);
-		formData.append('street_address', street_address);
-		formData.append('state', state);
-		formData.append('zipcode', zipcode);
-		formData.append('tokenId', tokenId);
-		formData.append('isNorthAmerica',isNorthAmerica);
+        try {
+            // await handleBurnNFT();
 
-		try {
-			const result = await dispatch(ShippingForm(formData))
-			if (result.ok) {
+            const formData = new FormData();
+            formData.append('recipient', recipient);
+            formData.append('street_address', street_address);
+            formData.append('state', state);
+            formData.append('zipcode', zipcode);
+            formData.append('tokenId', tokenId);
+            formData.append('isNorthAmerica', isNorthAmerica);
+
+            const result = await dispatch(ShippingForm(formData));
+            if (result.ok) {
                 setRecipient('');
                 setStreetAddress('');
                 setState('');
                 setZipcode('');
                 setTokenId('');
-				setIsNorthAmerica(true);
+                setIsNorthAmerica(true);
                 setError({});
-                closeModal();
-    
-
+                // closeModal();
+                new alert('submitted form!')
             } else {
-               
-                // const errors = {}
-                setError(result.errors)
+                setError(result.errors);
             }
-		} catch (error) {
-			return error
-		}
+        } catch (error) {
+            console.error("Error in handleSubmit", error);
+        }
     };
 
     return (
         <div className='main-form-div'>
+            
             <form onSubmit={handleSubmit} className="shipping-form">
-			<div>
+                <div>
                     <label>Recipient</label>
                     <input
                         type="text"
@@ -80,7 +95,7 @@ function Redeem() {
                         placeholder="Recipient"
                         className="form-input"
                     />
-                    {/* {error.spell && <p className="error-message">{error.spell}</p>} */}
+                    {error?.recipient && <p className="error-message">{error.recipient}</p>}
                 </div>
                 <div>
                     <label>Mailing Address</label>
@@ -91,7 +106,7 @@ function Redeem() {
                         placeholder="Mailing Address"
                         className="form-input"
                     />
-                    {/* {error.wallet && <p className="error-message">{error.wallet}</p>} */}
+                    {error.street_address && <p className="error-message">{error.street_address}</p>}
                 </div>
                 <div>
                     <label>State</label>
@@ -102,42 +117,43 @@ function Redeem() {
                         placeholder="State/Province"
                         className="form-input"
                     />
-                    {/* {error.spell && <p className="error-message">{error.spell}</p>} */}
+                    {error.state && <p className="error-message">{error.state}</p>}
                 </div>
                 <div>
                     <label>Zipcode</label>
                     <input
-                        type="number"
+                        type="text"
                         value={zipcode}
                         onChange={(e) => setZipcode(e.target.value)}
-                        placeholder="zipcode"
+                        placeholder="Zipcode"
                         className="form-input"
                     />
-				{/* {error.nft && <p className="error-message">{error.nft}</p>} */}
-
+                    {error.zipcode && <p className="error-message">{error.zipcode}</p>}
                 </div>
                 <div>
-                    <label>TokenID:</label>
-                    <textarea
+                    <label>TokenID</label>
+                    <input
+                        type="text"
                         value={tokenId}
                         onChange={(e) => setTokenId(e.target.value)}
-                        placeholder="TOKEN ID"
+                        placeholder="Token ID"
                         className="form-input"
-						/>
-				{/* {error.reason && <p className="error-message">{error.reason}</p>} */}
+                    />
+                    {error.tokenId && <p className="error-message">{error.tokenId}</p>}
                 </div>
                 <div>
                     <label>Are you in North America?</label>
                     <input
-                        type="boolean"
-                        value={isNorthAmerica}
-                        onChange={(e) => setIsNorthAmerica(e.target.value)}
+                        type="checkbox"
+                        checked={isNorthAmerica}
+                        onChange={(e) => setIsNorthAmerica(e.target.checked)}
                         className="form-input"
                     />
-				{/* {error.twitter && <p className="error-message">{error.twitter}</p>} */}
                 </div>
-                <button type="submit" className="submit-btn form">Submit</button>
+                <button type="submit" className="submit">Burn to Confirm</button>
+                {error.burn && <p className="error-message">{error.burn}</p>}
             </form>
+            <button onClick={handleConnectWallet} className="connect-wallet-btn">Connect Wallet</button>
         </div>
     );
 }

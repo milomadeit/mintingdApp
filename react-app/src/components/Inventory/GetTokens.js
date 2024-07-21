@@ -1634,7 +1634,6 @@ const convertIpfsUrlToHttp = (url) => {
     return url;
 };
 
-
 function GetTokens({ contractAddress }) {
     const [nfts, setNfts] = useState([]);
     const [provider, setProvider] = useState(null);
@@ -1651,8 +1650,7 @@ function GetTokens({ contractAddress }) {
                 const _provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
                 const network = await _provider.getNetwork();
                 if (network.chainId !== 1329) {
-                    console.log(network.chainId);
-                    window.alert('Please connect to the SEI network.')
+                    window.alert('Please connect to the SEI network.');
                     throw new Error('Please connect to the SEI network.');
                 }
                 setProvider(_provider);
@@ -1728,10 +1726,10 @@ function GetTokens({ contractAddress }) {
             ) : (
                 <>
                     <h2>Connected Account: {account}</h2>
-                    {error && <p>Error: {error}</p>}
+                    {error && <p className="error-message">Error: {error}</p>}
                     {loadingGif ? (
-                        <div className='load-div'>
-                            <img src={loading} alt="Loading" />
+                        <div className="loading-div">
+                            <img className='loading' src={loading} alt="Loading" />
                         </div>
                     ) : (
                         nfts.length > 0 ? (
@@ -1741,7 +1739,11 @@ function GetTokens({ contractAddress }) {
                                         <img className="nft-img" src={nft.image} alt={nft.name} />
                                         <p className="nft-name">{nft.name}</p>
                                         <p className="nft-description">{nft.description}</p>
-                                        <a href={nft.external_url} target="_blank" rel="noopener noreferrer" className="nft-external-url">View on Market</a>
+                                        {nft.external_url && (
+                                            <a href={nft.external_url} target="_blank" rel="noopener noreferrer" className="nft-external-url">
+                                                View on Market
+                                            </a>
+                                        )}
                                         {nft.attributes && nft.attributes.map((attr, idx) => (
                                             <p key={idx} className="nft-attribute">{attr.trait_type}: {attr.value}</p>
                                         ))}

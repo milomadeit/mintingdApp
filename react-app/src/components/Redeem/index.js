@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useModal } from '../../context/Modal';
 import './redeem.css';
 import { useDispatch } from 'react-redux';
 import { ShippingForm } from '../../store/shipping';
@@ -13,7 +12,6 @@ function Redeem() {
     const [isNorthAmerica, setIsNorthAmerica] = useState(true);
     const [tokenId, setTokenId] = useState('');
     const [error, setError] = useState({});
-    const { closeModal } = useModal();
     const dispatch = useDispatch();
     const { signer, handleConnectWallet } = useWallet();
 
@@ -153,7 +151,7 @@ function Redeem() {
                 <button type="submit" className="submit">Burn to Confirm</button>
                 {error.burn && <p className="error-message">{error.burn}</p>}
             </form>
-            <button onClick={handleConnectWallet} className="connect-wallet-btn">Connect Wallet</button>
+          
         </div>
     );
 }

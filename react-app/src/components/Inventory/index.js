@@ -1,5 +1,5 @@
 import React from 'react';
-import { WalletConnectButton } from '@sei-js/react';
+
 import GetTokens from './GetTokens';
 import './Inventory.css'
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Homepage.css'
-import OpenModalButton from '../OpenModalButton';
-import Form from '../Form';
-import { SigningCosmWasmClient } from 'cosmwasm';
-import { useState } from 'react';
+// import { SigningCosmWasmClient } from 'cosmwasm';
+// import { useState } from 'react';
 
 
 

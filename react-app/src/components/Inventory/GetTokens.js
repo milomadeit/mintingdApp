@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './Inventory.css';
 import loading from './loading.gif'
+import GetCosmosAddress from '../../utills/evm_to_cosmos';
 
 
 const abi = [
@@ -1642,6 +1643,7 @@ function GetTokens({ contractAddress }) {
     const [error, setError] = useState(null);
     const [totalNFTs, setTotalNFTs] = useState(0);
     const [loadingGif, setLoadingGif] = useState(true);
+    const [cosmosAddress, setCosmosAddress] = useState("");
 
     const connectWallet = async () => {
         if (window.ethereum) {
@@ -1658,8 +1660,14 @@ function GetTokens({ contractAddress }) {
                 setSigner(_signer);
                 const _account = await _signer.getAddress();
                 setAccount(_account);
+                
+                console.log(`Ethereum account: ${_account}`);
+                const cosmos = await GetCosmosAddress(_account);
+                setCosmosAddress(cosmos);
+                console.log(`cosmos address: ${cosmos}`);
+
             } catch (error) {
-                console.error('User denied account access or other error:', error);
+                console.error('user denied account access or other error:', error);
                 setError(error.message);
             }
         } else {
@@ -1669,52 +1677,52 @@ function GetTokens({ contractAddress }) {
     };
 
     useEffect(() => {
-        const fetchNFTs = async () => {
-            if (!provider || !signer || !account) return;
-            setLoadingGif(true);
+        // const fetchNFTs = async () => {
+        //     if (!provider || !signer || !account) return;
+        //     setLoadingGif(true);
 
-            const contract = new ethers.Contract(contractAddress, abi, signer);
+        //     const contract = new ethers.Contract(contractAddress, abi, signer);
 
-            try {
-                const balance = await contract.balanceOf(account);
-                setTotalNFTs(Number(balance));
-                console.log(`Balance of NFTs: ${balance}`);
+        //     try {
+        //         const balance = await contract.balanceOf(account);
+        //         setTotalNFTs(Number(balance));
+        //         console.log(`Balance of NFTs: ${balance}`);
 
-                const totalSupply = await contract.totalSupply();
-                console.log(`Total Supply of NFTs: ${totalSupply}`);
+        //         const totalSupply = await contract.totalSupply();
+        //         console.log(`Total Supply of NFTs: ${totalSupply}`);
 
-                const nftDetails = [];
-                for (let tokenId = 1; tokenId < totalSupply; tokenId++) {
-                    try {
-                        const owner = await contract.ownerOf(tokenId);
-                        if (owner.toLowerCase() === account.toLowerCase()) {
-                            const tokenURI = await contract.tokenURI(tokenId);
-                            const httpUri = convertIpfsUrlToHttp(tokenURI);
-                            console.log(`Token URI: ${httpUri}`);
-                            const metadataResponse = await fetch(httpUri);
-                            if (!metadataResponse.ok) {
-                                throw new Error(`Failed to fetch metadata: ${metadataResponse.statusText}`);
-                            }
-                            const metadata = await metadataResponse.json();
-                            const imageHttpUri = convertIpfsUrlToHttp(metadata.image);
-                            nftDetails.push({ ...metadata, image: imageHttpUri, token_id: tokenId });
-                        }
-                    } catch (innerError) {
-                        console.error(`Error fetching token details for token ID ${tokenId}:`, innerError);
-                        setError(innerError.message);
-                    }
-                }
+        //         const nftDetails = [];
+        //         for (let tokenId = 1; tokenId < totalSupply; tokenId++) {
+        //             try {
+        //                 const owner = await contract.ownerOf(tokenId);
+        //                 if (owner.toLowerCase() === account.toLowerCase()) {
+        //                     const tokenURI = await contract.tokenURI(tokenId);
+        //                     const httpUri = convertIpfsUrlToHttp(tokenURI);
+        //                     console.log(`Token URI: ${httpUri}`);
+        //                     const metadataResponse = await fetch(httpUri);
+        //                     if (!metadataResponse.ok) {
+        //                         throw new Error(`Failed to fetch metadata: ${metadataResponse.statusText}`);
+        //                     }
+        //                     const metadata = await metadataResponse.json();
+        //                     const imageHttpUri = convertIpfsUrlToHttp(metadata.image);
+        //                     nftDetails.push({ ...metadata, image: imageHttpUri, token_id: tokenId });
+        //                 }
+        //             } catch (innerError) {
+        //                 console.error(`Error fetching token details for token ID ${tokenId}:`, innerError);
+        //                 setError(innerError.message);
+        //             }
+        //         }
 
-                setNfts(nftDetails);
-            } catch (error) {
-                console.error('Error fetching NFTs:', error);
-                setError(error.message);
-            } finally {
-                setLoadingGif(false);
-            }
-        };
+        //         setNfts(nftDetails);
+        //     } catch (error) {
+        //         console.error('Error fetching NFTs:', error);
+        //         setError(error.message);
+        //     } finally {
+        //         setLoadingGif(false);
+        //     }
+        // };
 
-        fetchNFTs();
+        // fetchNFTs();
     }, [provider, signer, account, contractAddress]);
 
     return (
@@ -1725,7 +1733,7 @@ function GetTokens({ contractAddress }) {
                 </button>
             ) : (
                 <>
-                    <h2>Connected Account: {account}</h2>
+                    <h2>Connected Account: {account}, {cosmosAddress}</h2>
                     {error && <p className="error-message">Error: {error}</p>}
                     {loadingGif ? (
                         <div className="loading-div">

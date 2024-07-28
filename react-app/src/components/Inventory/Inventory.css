@@ -1,137 +1,141 @@
 .inventory-div {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-  .buttons-connect {
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-between;
-  }
+.buttons-connect {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
 
-  .logged-out {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-  }
+.logged-out {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
 
-  .connected-p {
-	position: absolute;
-	top: 0px;
-	left: 20px;
-	color: white;
-  }
+.connected-p {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    color: white;
+}
 
 .card-div {
-	display: inline-block;
-	margin: 10px;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	width: 200px;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 200px;
 }
 
 .load-div {
-	margin-top:-80px;
+    margin-top: -80px;
 }
 
 .load-div > img {
-	height: 350px;
-	margin-top: -25px;
+    height: 350px;
+    margin-top: -25px;
 }
 
 .loading-div {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 .loading {
-	height: 300px;
+    height: 300px;
 }
 
-
-/* ============== */
-
-
 .get-tokens-div {
-	padding: 20px;
-	text-align: center;
-  }
-  
-  .connect-wallet-button {
-	background-color: #1a1a1a;
-	color: #fff;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s;
-  }
-  
-  .connect-wallet-button:hover {
-	background-color: #333;
-  }
-  
-  .error-message {
-	color: red;
-  }
-  
-  .loading-div {
-	margin: 20px 0;
-  }
-  
-  .card-div {
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	padding: 15px;
-	margin: 10px;
-	display: inline-block;
-	width: 250px;
-	text-align: left;
-  }
-  
-  .nft-div {
-	text-align: center;
-  }
-  
-  .nft-img {
-	width: 100%;
-	border-radius: 10px;
-  }
-  
-  .nft-name {
-	font-weight: bold;
-	margin-top: 10px;
-  }
-  
-  .nft-description {
-	margin: 10px 0;
-  }
-  
-  .nft-external-url {
-	color: #0066cc;
-	text-decoration: none;
-  }
-  
-  .nft-external-url:hover {
-	text-decoration: underline;
-  }
-  
-  .nft-attribute {
-	font-size: 14px;
-	margin: 5px 0;
-  }
-  
-  .opt-in-button {
-	background-color: #1a1a1a;
-	color: #fff;
-	border: none;
-	padding: 10px;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s;
-  }
-  
-  .opt-in-button:hover {
-	background-color: #333;
-  }
+    padding: 20px;
+    text-align: center;
+}
+
+.connect-wallet-button {
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.connect-wallet-button:hover {
+    background-color: #333;
+}
+
+.error-message {
+    color: red;
+}
+
+.loading-div {
+    margin: 20px 0;
+}
+
+.card-div {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    display: inline-block;
+    width: 250px;
+    text-align: left;
+}
+
+.nft-div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.nft-img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.nft-name {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.nft-description {
+    margin: 10px 0;
+}
+
+.nft-external-url {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.nft-external-url:hover {
+    text-decoration: underline;
+}
+
+.nft-attribute {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.opt-in-button {
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px; 
+}
+
+.opt-in-button:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+    transition: transform 0.3s;
+}
